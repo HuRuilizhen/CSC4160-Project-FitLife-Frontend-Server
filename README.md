@@ -1,37 +1,41 @@
 # CSC4160 Project FitLife Frontend Server
 
+--- 
+
+## Team Members
+
+| Name           | GitHub ID                                     | Student ID | Email                          |
+| -------------- | --------------------------------------------- | ---------- | ------------------------------ |
+| Ruilizhen HU   | [HuRuilizhen](https://github.com/HuRuilizhen) | 122090168  | ruilizhenhu@link.cuhk.edu.cn   |
+| Jiajun You     | [AlaNotFound](https://github.com/AlaNotFound) | 122090684  | jiajunyou@link.cuhk.edu.cn     |
+| Zhenghao Huang | [laaaaaasso](https://github.com/laaaaaasso)   | 122090199  | zhenghaohuang@link.cuhk.edu.cn |
+
 ---
 
-## Recommended IDE Setup
+## How to start the frontend server
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+👉 To install dependencies, run following command in the root of the project.
 
-## Customize Configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
+```bash
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+👉 To start the development server, run following command in the root of the project.
 
-```sh
+```bash
 npm run dev
 ```
 
-### Compile and Minify for Production
+👉 To build the project, run following command in the root of the project.
 
-```sh
+```bash
 npm run build
 ```
 
-### Lint with [ESLint](https://eslint.org/)
+👉 To deploy the server, run following command in the root of the project.
 
-```sh
-npm run lint
+```bash
+docker compose up -d
 ```
 
 ---
