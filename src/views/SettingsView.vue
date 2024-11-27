@@ -143,12 +143,9 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin-top: 60px;
     width: 100%;
-    height: 890px;
+    height: 98vh;
     background-color: #eeeeee;
-    border-radius: 8px;
-    border: 1px solid #ccc;
     gap: 0;
 }
 

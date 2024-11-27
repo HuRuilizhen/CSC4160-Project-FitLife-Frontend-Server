@@ -6,6 +6,11 @@
             <span class="logo">FitLife - Your Fitness Companion</span>
         </div>
         <div v-if="$store.getters.isLoggedIn" class="navbar-right">
+            <button class="nav-button" @click="navigateTo('/posts')">Community</button>
+            <button class="nav-button" @click="navigateTo('/dietlog')">Diet Log</button>
+            <button class="nav-button" @click="navigateTo('/sportlog')">Sport Log</button>
+            <button class="nav-button" @click="navigateTo('/report')">Report</button>
+            <button class="nav-button" @click="navigateTo('/dashboard')">Dashboard</button>
             <div class="user-info" @click="showDropdown = !showDropdown">
                 <img class="avatar" :src="$store.state.avatar_url" alt="Avatar">
                 <span class="user-name">{{ $store.state.user.username }}</span>
@@ -41,8 +46,10 @@ export default {
         },
         handleClickSettings() {
             this.showDropdown = false;
-            console.log('Settings clicked ' + this.showDropdown);
             this.$router.push('/settings');
+        },
+        navigateTo(route) {
+            this.$router.push(route);
         }
     }
 }
@@ -148,5 +155,21 @@ export default {
     width: 14px;
     height: 14px;
     margin-right: 2px;
+}
+
+.nav-button {
+    background: none;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.nav-button:hover {
+    background-color: #e0e0e0;
 }
 </style>

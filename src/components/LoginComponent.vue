@@ -49,7 +49,7 @@ export default {
                     this.$store.commit('SET_TOKEN', response.data.access_token);
                     this.$store.commit('SET_USER', response.data.user);
                     this.$store.commit('SET_AVATAR_URL', `data:image/jpg;base64,${response.data.user.avatar_base64}`);
-                    // this.goToHome();
+                    this.$router.push('/dashboard');
                 }
             } catch (error) {
                 this.message = "Server network error, please try again";
