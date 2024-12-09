@@ -26,7 +26,7 @@
                 <div class="recent-activity">
                     <h3>Recent Activity</h3>
                     <ul>
-                        <li v-for="activity in recentActivities" :key="activity.id">
+                        <li v-for="activity in recentActivities" :key="activity.date">
                             {{ activity.description }}
                         </li>
                     </ul>
@@ -36,12 +36,12 @@
                 <div class="community-feed">
                     <h3>Community Feed</h3>
                     <div class="post-cards">
-                        <div v-for="post in posts" :key="post.id" class="post-card"
+                        <div v-for="post in posts" :key="post.date" class="post-card"
                             @click="navigateTo(`/post/${post.id}`)">
                             <div class="card-header">
                                 <div class="text-content">
                                     <h4>{{ post.title }}</h4>
-                                    <p class="author-time">{{ post.author }} - {{ post.time }}</p>
+                                    <p class="author-time">{{ post.author }} | {{ post.date }}</p>
                                 </div>
                             </div>
                             <div class="card-content">
@@ -78,35 +78,45 @@ export default {
         fetchData() {
             // Fetch user data from the backend
 
-            this.userCaloriesBurned = 2000;
-            this.userCaloriesConsumed = 1500;
-            this.recentActivities = [
-                { id: 1, description: 'Logged 1 hour of cycling' },
-                { id: 2, description: 'Ate a healthy salad for lunch' }
-            ];
-            this.posts = [
-                {
-                    id: 1,
-                    title: 'Healthy Eating Habits',
-                    author: 'John Doe',
-                    time: '2 hours ago',
-                    summary: 'Learn about healthy eating habits and how to maintain a balanced diet.'
-                },
-                {
-                    id: 2,
-                    title: 'Fitness Tips for Beginners',
-                    author: 'Jane Smith',
-                    time: '1 day ago',
-                    summary: 'Discover fitness tips for beginners and how to start your fitness journey.'
-                },
-                {
-                    id: 3,
-                    title: 'Healthy Lifestyle',
-                    author: 'Bob Johnson',
-                    time: '3 days ago',
-                    summary: 'Learn about the importance of a healthy lifestyle and how to maintain it.'
-                }
-            ];
+            // this.userCaloriesBurned = 2000;
+            // this.userCaloriesConsumed = 1500;
+            // this.recentActivities = [
+            //     { id: 1, description: 'Logged 1 hour of cycling' },
+            //     { id: 2, description: 'Ate a healthy salad for lunch' }
+            // ];
+            // this.posts = [
+            //     {
+            //         id: 1,
+            //         title: 'Healthy Eating Habits',
+            //         author: 'John Doe',
+            //         time: '2 hours ago',
+            //         summary: 'Learn about healthy eating habits and how to maintain a balanced diet.'
+            //     },
+            //     {
+            //         id: 2,
+            //         title: 'Fitness Tips for Beginners',
+            //         author: 'Jane Smith',
+            //         time: '1 day ago',
+            //         summary: 'Discover fitness tips for beginners and how to start your fitness journey.'
+            //     },
+            //     {
+            //         id: 3,
+            //         title: 'Healthy Lifestyle',
+            //         author: 'Bob Johnson',
+            //         time: '3 days ago',
+            //         summary: 'Learn about the importance of a healthy lifestyle and how to maintain it.'
+            //     }
+            // ];
+
+            const token = localStorage.getItem('jwtToken');
+            this.$http.get('/api/dashboard/fetch', { headers: { Authorization: `Bearer ${token}` } })
+                .then(response => {
+                    this.userCaloriesBurned = response.data.userCaloriesBurned;
+                    this.userCaloriesConsumed = response.data.userCaloriesConsumed;
+                    this.recentActivities = response.data.recentActivities;
+                    this.posts = response.data.posts;
+                })
+                .catch(error => console.log(error));
         }
     }
 };
