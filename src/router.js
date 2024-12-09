@@ -28,7 +28,7 @@ const routes = [
     },
     {
         path: '/:pathMatch(.*)*',
-        redirect: { name: 'StartPage' }
+        redirect: { name: 'Dashboard' }
     }
 ];
 
