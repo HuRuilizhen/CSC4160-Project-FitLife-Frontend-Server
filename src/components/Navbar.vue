@@ -6,7 +6,7 @@
             <span class="logo">FitLife - Your Fitness Companion</span>
         </div>
         <div v-if="$store.getters.isLoggedIn" class="navbar-right">
-            <button class="nav-button" @click="navigateTo('/posts')">Community</button>
+            <button class="nav-button" @click="navigateTo('/community')">Community</button>
             <button class="nav-button" @click="navigateTo('/dietlog')">Diet Log</button>
             <button class="nav-button" @click="navigateTo('/sportlog')">Sport Log</button>
             <button class="nav-button" @click="navigateTo('/report')">Report</button>

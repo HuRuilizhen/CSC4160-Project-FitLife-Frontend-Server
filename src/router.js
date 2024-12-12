@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import Start from './views/StartView.vue';
 import Settings from './views/SettingsView.vue';
 import Dashboard from './views/DashboardView.vue';
+import Community from './views/CommunityView.vue';
 
 const routes = [
     {
@@ -22,6 +23,14 @@ const routes = [
         path: '/dashboard',
         name: 'Dashboard',
         component: Dashboard,
+        meta: {
+            requiresAuth: true
+        }
+    },
+    {
+        path: '/community',
+        name: 'Community',
+        component: Community,
         meta: {
             requiresAuth: true
         }

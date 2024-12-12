@@ -21,7 +21,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="main-content">
                 <div class="recent-activity">
                     <h3>Recent Activity</h3>
@@ -76,38 +75,6 @@ export default {
             this.$router.push(route);
         },
         fetchData() {
-            // Fetch user data from the backend
-
-            // this.userCaloriesBurned = 2000;
-            // this.userCaloriesConsumed = 1500;
-            // this.recentActivities = [
-            //     { id: 1, description: 'Logged 1 hour of cycling' },
-            //     { id: 2, description: 'Ate a healthy salad for lunch' }
-            // ];
-            // this.posts = [
-            //     {
-            //         id: 1,
-            //         title: 'Healthy Eating Habits',
-            //         author: 'John Doe',
-            //         time: '2 hours ago',
-            //         summary: 'Learn about healthy eating habits and how to maintain a balanced diet.'
-            //     },
-            //     {
-            //         id: 2,
-            //         title: 'Fitness Tips for Beginners',
-            //         author: 'Jane Smith',
-            //         time: '1 day ago',
-            //         summary: 'Discover fitness tips for beginners and how to start your fitness journey.'
-            //     },
-            //     {
-            //         id: 3,
-            //         title: 'Healthy Lifestyle',
-            //         author: 'Bob Johnson',
-            //         time: '3 days ago',
-            //         summary: 'Learn about the importance of a healthy lifestyle and how to maintain it.'
-            //     }
-            // ];
-
             const token = localStorage.getItem('jwtToken');
             this.$http.get('/api/dashboard/fetch', { headers: { Authorization: `Bearer ${token}` } })
                 .then(response => {
