@@ -66,14 +66,14 @@ export default {
             this.submitError = null;
 
             const formData = new FormData();
-            formData.append('id', this.id);
+            formData.append('post_id', this.id);
             formData.append('title', this.title);
             formData.append('summary', this.summary);
             formData.append('content', this.content);
 
             try {
                 const token = localStorage.getItem('jwtToken');
-                let response = await this.$http.post('/api/post/edit', formData, {
+                let response = await this.$http.post('/api/post/update', formData, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                         'Content-Type': 'multipart/form-data'
