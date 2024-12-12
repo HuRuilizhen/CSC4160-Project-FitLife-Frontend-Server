@@ -6,14 +6,26 @@
                     <h2>Community</h2>
                     <p>Welcome to our community posts. Explore the latest posts and join the conversation.</p>
                 </div>
-                <button @click="navigateTo('/community/create')" class="create-post-btn">Create New Blog</button>
+                <button @click="navigateTo('/community/create')" class="create-post-btn">Create New Posts</button>
             </header>
             <div class="post-cards">
                 <div v-for="post in posts" :key="post.id" class="post-card"
                     @click="navigateTo(`/community/post/${post.id}`)">
-                    <h3>{{ post.title }}</h3>
-                    <p>{{ post.summary }}</p>
-                    <small>{{ post.author }} | {{ formatDate(post.created_at) }}</small>
+                    <div v-if="post.image_url" class="post-image">
+                        <img :src="`${$http.defaults.baseURL}${post.image_url}`" alt="Post Cover" />
+                    </div>
+                    <div class="post-content">
+                        <div class="post-header">
+                            <h3>{{ post.title }}</h3>
+                            <p>{{ post.summary }}</p>
+                        </div>
+                        <footer class="post-footer">
+                            <div class="author-avatar">
+                                <img :src="`${$http.defaults.baseURL}${post.author_avatar_url}`" alt="Author Avatar" />
+                            </div>
+                            <small>{{ post.author }} | {{ formatDate(post.date) }}</small>
+                        </footer>
+                    </div>
                 </div>
             </div>
             <div v-if="!posts.length" class="no-posts">
@@ -38,13 +50,12 @@ export default {
         navigateTo(route) {
             this.$router.push(route);
         },
-        fetchPosts() {
+        async fetchPosts() {
             const token = localStorage.getItem('jwtToken');
-            this.$http.get('/api/blogs', { headers: { Authorization: `Bearer ${token}` } })
-                .then(response => {
-                    this.posts = response.data;
-                })
-                .catch(error => console.log(error));
+            let response = await this.$http.get('/api/post/fetch', { headers: { Authorization: `Bearer ${token}` } });
+            if (response.data.is_valid) {
+                this.posts = response.data.posts;
+            }
         },
         formatDate(dateString) {
             const date = new Date(dateString);
@@ -55,6 +66,8 @@ export default {
 </script>
 
 <style scoped>
+@import url(../assets/post-cards.css);
+
 .community-view {
     display: flex;
     flex-direction: column;
@@ -75,9 +88,13 @@ export default {
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .page-header {
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -121,24 +138,10 @@ export default {
 }
 
 .post-cards {
+    width: 80%;
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     gap: 20px;
-}
-
-.post-card {
-    background-color: #f8f8f8;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    padding: 15px;
-    width: calc(100% / 3 - 40px);
-    cursor: pointer;
-    transition: transform 0.3s ease;
-}
-
-.post-card:hover {
-    transform: translateY(-5px);
-    background-color: #f0f0f0;
 }
 
 .no-posts {

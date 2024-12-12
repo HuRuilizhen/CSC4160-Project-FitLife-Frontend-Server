@@ -24,29 +24,36 @@
             <div class="main-content">
                 <div class="recent-activity">
                     <h3>Recent Activity</h3>
-                    <ul>
-                        <li v-for="activity in recentActivities" :key="activity.date">
+                    <div class="activity-cards">
+                        <div class="activity-card" v-for="activity in recentActivities" :key="activity.date">
                             {{ activity.description }}
-                        </li>
-                    </ul>
+                        </div>
+                    </div>
                     <div v-if="!recentActivities.length">No recent activities available.</div>
                 </div>
-
                 <div class="community-feed">
                     <h3>Community Feed</h3>
                     <div class="post-cards">
-                        <div v-for="post in posts" :key="post.date" class="post-card"
-                            @click="navigateTo(`/post/${post.id}`)">
-                            <div class="card-header">
-                                <div class="text-content">
-                                    <h4>{{ post.title }}</h4>
-                                    <p class="author-time">{{ post.author }} | {{ post.date }}</p>
-                                </div>
+                        <div v-for="post in posts" :key="post.id" class="post-card"
+                            @click="navigateTo(`/community/post/${post.id}`)">
+                            <div v-if="post.image_url" class="post-image">
+                                <img :src="`${$http.defaults.baseURL}${post.image_url}`" alt="Post Cover" />
                             </div>
-                            <div class="card-content">
-                                <p>{{ post.summary }}</p>
+                            <div class="post-content">
+                                <div class="post-header">
+                                    <h3>{{ post.title }}</h3>
+                                    <p>{{ post.summary }}</p>
+                                </div>
+                                <footer class="post-footer">
+                                    <div class="author-avatar">
+                                        <img :src="`${$http.defaults.baseURL}${post.author_avatar_url}`"
+                                            alt="Author Avatar" />
+                                    </div>
+                                    <small>{{ post.author }} | {{ formatDate(post.date) }}</small>
+                                </footer>
                             </div>
                         </div>
+
                         <div v-if="!posts.length" class="no-posts">No posts available.</div>
                     </div>
                 </div>
@@ -84,12 +91,18 @@ export default {
                     this.posts = response.data.posts;
                 })
                 .catch(error => console.log(error));
+        },
+        formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString();
         }
     }
 };
 </script>
 
 <style scoped>
+@import url(../assets/post-cards.css);
+
 .dashboard-view {
     display: flex;
     flex-direction: column;
@@ -160,83 +173,28 @@ export default {
     color: #45a049;
 }
 
-.recent-activity ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-.recent-activity li {
-    margin-bottom: 10px;
-    margin-bottom: 10px;
-    padding: 10px;
-    background-color: #f8f8f8;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-    transition: transform 0.3s ease;
-}
-
-.recent-activity li:hover {
-    transform: translateY(-5px);
-    background-color: #f0f0f0;
-}
-
 .community-feed {
     margin-top: 20px;
 }
 
-.post-cards {
+.activity-cards {
+    width: 80%;
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-.post-card {
-    border-radius: 8px;
+.activity-card {
     background-color: #f8f8f8;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    padding: 10px;
-    display: flex;
+    padding: 15px;
     cursor: pointer;
     transition: transform 0.3s ease;
 }
 
-.post-card:hover {
+.activity-card:hover {
     transform: translateY(-5px);
     background-color: #f0f0f0;
-}
-
-.card-header {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-}
-
-.text-content {
-    flex: 1;
-}
-
-.text-content h4 {
-    margin-bottom: 5px;
-    color: #333;
-}
-
-.text-content .author-time {
-    font-size: 14px;
-    color: #777;
-}
-
-.card-content {
-    margin-top: 10px;
-    margin-left: 100px;
-    flex: 1;
-}
-
-.card-content p {
-    font-size: 16px;
-    line-height: 1.5;
-    color: #555;
-    text-align: right;
 }
 </style>

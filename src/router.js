@@ -4,6 +4,7 @@ import Start from './views/StartView.vue';
 import Settings from './views/SettingsView.vue';
 import Dashboard from './views/DashboardView.vue';
 import Community from './views/CommunityView.vue';
+import PostCreateView from './views/PostCreateView.vue';
 
 const routes = [
     {
@@ -31,6 +32,14 @@ const routes = [
         path: '/community',
         name: 'Community',
         component: Community,
+        meta: {
+            requiresAuth: true
+        }
+    },
+    {
+        path: '/community/create',
+        name: 'PostCreate',
+        component: PostCreateView,
         meta: {
             requiresAuth: true
         }
