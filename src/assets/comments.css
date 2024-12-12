@@ -42,6 +42,24 @@
     object-fit: cover;
 }
 
+.comment-delete-btn {
+    background-color: #f44336;
+    border: none;
+    color: white;
+    padding: 2px 2px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 14px;
+    margin-left: 10px;
+}
+
+.comment-delete-btn:hover {
+    background-color: #d32f2f;
+}
+
 .comment-form {
     margin-top: 20px;
 }

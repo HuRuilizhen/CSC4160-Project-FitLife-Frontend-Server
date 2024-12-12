@@ -38,7 +38,10 @@
                             <div class="comment-author">
                                 <img :src="`${$http.defaults.baseURL}${comment.author_avatar_url}`" alt="Author Avatar"
                                     class="comment-author-avatar" />
-                                <span>{{ comment.author }} | {{ formatDate(comment.date) }}</span>
+                                <span>{{ comment.author }} | {{ formatDate(comment.date) }} {{ comment.author_id ===
+                                    $store.state.user.id ? '| You' : '' }}</span>
+                                <span v-if="comment.author_id === $store.state.user.id" class="comment-delete-btn"
+                                    @click="delteComment(comment.id)">Delete</span>
                             </div>
                             <p>{{ comment.content }}</p>
                         </li>
@@ -100,7 +103,6 @@ export default {
             }
         },
         async deletePost() {
-
             if (!confirm("Are you sure you want to delete this post?")) {
                 return;
             }
@@ -117,6 +119,25 @@ export default {
             } catch (error) {
                 console.error("Failed to delete post:", error);
                 alert("Failed to delete the post. Please try again. Error:", error);
+            }
+        },
+        async delteComment(commentId) {
+            if (!confirm("Are you sure you want to delete this comment?")) {
+                return;
+            }
+
+            const token = localStorage.getItem('jwtToken');
+            try {
+                let response = await this.$http.delete(`/api/comment/delete`, { params: { comment_id: commentId }, headers: { Authorization: `Bearer ${token}` } });
+                if (response.data.is_valid) {
+                    this.fetchPost();
+                }
+                else {
+                    alert("Failed to delete the comment. Please try again. Message: " + response.data.message);
+                }
+            } catch (error) {
+                console.error("Failed to delete comment:", error);
+                alert("Failed to delete the comment. Please try again. Error:", error);
             }
         },
         formatDate(dateString) {
