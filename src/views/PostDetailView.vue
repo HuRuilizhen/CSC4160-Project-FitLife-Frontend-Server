@@ -99,6 +99,26 @@ export default {
                 console.error("Failed to create comment:", error);
             }
         },
+        async deletePost() {
+
+            if (!confirm("Are you sure you want to delete this post?")) {
+                return;
+            }
+
+            const token = localStorage.getItem('jwtToken');
+            try {
+                let response = await this.$http.delete(`/api/post/delete`, { params: { post_id: this.postId }, headers: { Authorization: `Bearer ${token}` } });
+                if (response.data.is_valid) {
+                    this.$router.push('/community');
+                }
+                else {
+                    alert("Failed to delete the post. Please try again. Message: " + response.data.message);
+                }
+            } catch (error) {
+                console.error("Failed to delete post:", error);
+                alert("Failed to delete the post. Please try again. Error:", error);
+            }
+        },
         formatDate(dateString) {
             const date = new Date(dateString);
             return date.toLocaleDateString();
@@ -206,7 +226,8 @@ export default {
     width: 100%;
     padding: 20px;
     background-color: white;
-    border-radius: 8px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     align-items: center;
 }
