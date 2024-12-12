@@ -5,7 +5,8 @@ import axios from 'axios';
 const store = new Vuex.Store({
     state: {
         token: null,
-        user: null
+        user: null,
+        avatar_url: null
     },
     mutations: {
         SET_TOKEN(state, token) {
@@ -23,6 +24,7 @@ const store = new Vuex.Store({
         LOGOUT(state) {
             state.token = null;
             state.user = null;
+            state.avatar_url = null;
             localStorage.removeItem('jwtToken');
             localStorage.removeItem('user');
             localStorage.removeItem('avatar_url');
@@ -44,15 +46,15 @@ async function checkToken() {
 
 
 if (localStorage.getItem('jwtToken') && localStorage.getItem('user')) {
-    if (await checkToken()) {
-        store.commit('SET_TOKEN', localStorage.getItem('jwtToken'));
-        store.commit('SET_USER', JSON.parse(localStorage.getItem('user')));
-        store.commit('SET_AVATAR_URL', localStorage.getItem('avatar_url'));
-    }
-    else {
-        localStorage.removeItem('jwtToken');
-        localStorage.removeItem('user');
-        localStorage.removeItem('avatar_url');
-    }
+    await checkToken().then((is_valid) => {
+        if (is_valid) {
+            store.commit('SET_TOKEN', localStorage.getItem('jwtToken'));
+            store.commit('SET_USER', JSON.parse(localStorage.getItem('user')));
+            store.commit('SET_AVATAR_URL', localStorage.getItem('avatar_url'));
+        }
+        else {
+            store.commit('LOGOUT');
+        }
+    })
 }
 export default store;

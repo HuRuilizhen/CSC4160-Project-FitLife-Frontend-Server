@@ -10,7 +10,7 @@
             </header>
             <div class="post-cards">
                 <div v-for="post in posts" :key="post.id" class="post-card"
-                    @click="navigateTo(`/community/post/${post.id}`)">
+                    @click="navigateTo(`/community/post?id=${post.id}`)">
                     <div v-if="post.image_url" class="post-image">
                         <img :src="`${$http.defaults.baseURL}${post.image_url}`" alt="Post Cover" />
                     </div>

@@ -5,6 +5,8 @@ import Settings from './views/SettingsView.vue';
 import Dashboard from './views/DashboardView.vue';
 import Community from './views/CommunityView.vue';
 import PostCreateView from './views/PostCreateView.vue';
+import PostDetailView from './views/PostDetailView.vue';
+import PostEditView from './views/PostEditView.vue';
 
 const routes = [
     {
@@ -40,6 +42,19 @@ const routes = [
         path: '/community/create',
         name: 'PostCreate',
         component: PostCreateView,
+        meta: {
+            requiresAuth: true
+        }
+    },
+    {
+        path: '/community/post',
+        name: 'PostDetail',
+        component: PostDetailView
+    },
+    {
+        path: '/community/post/edit',
+        name: 'PostEdit',
+        component: PostEditView,
         meta: {
             requiresAuth: true
         }

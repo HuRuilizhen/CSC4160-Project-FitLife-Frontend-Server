@@ -1,26 +1,19 @@
 <template>
-    <div class="post-create-view">
-        <div class="post-create-container">
+    <div class="post-edit-view">
+        <div class="post-edit-container">
             <header class="page-header">
                 <div class="header-content">
-                    <h2>Create Community New Post</h2>
-                    <p>Share your thoughts and ideas with the community.</p>
+                    <h2>Edit Community Post </h2>
+                    <p>Something wrong? Edit it.</p>
                 </div>
-                <button @click="navigateTo('/community')" class="back-btn">Back to Community</button>
+                <button @click="$router.go(-1)" class="back-btn">Last Page</button>
             </header>
             <form class="main-content" @submit.prevent="submitForm">
                 <div class="form-group title-group">
                     <label for="title">Title:</label>
                     <div class="input-with-button">
                         <input id="title" v-model="title" required />
-                        <button type="button" @click="openFileInput">
-                            <span>Cover</span>
-                            <input type="file" ref="image" @change="onFileChange" style="display: none;" />
-                        </button>
                     </div>
-                </div>
-                <div v-if="imagePreview" class="image-preview">
-                    <img :src="imagePreview" alt="Preview" />
                 </div>
                 <div class="form-group">
                     <label for="summary">Summary:</label>
@@ -31,7 +24,7 @@
                     <textarea id="content" v-model="content" required></textarea>
                 </div>
                 <p v-if="submitError" class="error-message">{{ submitError }}</p>
-                <button type="submit" :disabled="isSubmitting">Publish</button>
+                <button type="submit" :disabled="isSubmitting">Edit</button>
             </form>
         </div>
     </div>
@@ -39,35 +32,31 @@
 
 <script>
 export default {
-    name: 'PostCreate',
+    name: 'PostEdit',
     data() {
         return {
+            id: this.$route.query.id,
             title: '',
             summary: '',
             content: '',
-            selectedImage: null,
-            imagePreview: null,
+            submitError: null,
             isSubmitting: false,
-            submitError: null
         };
     },
     methods: {
-        onFileChange(event) {
-            const file = event.target.files[0];
-            if (file) {
-                this.selectedImage = file;
-                this.createImage(file);
+        async fetchPost() {
+            console.log("Fetching post...");
+            const token = localStorage.getItem('jwtToken');
+            try {
+                let response = await this.$http.get(`/api/post/detail`, { params: { id: this.id }, headers: { Authorization: `Bearer ${token}` } });
+                if (response.data.is_valid) {
+                    this.title = response.data.post.title;
+                    this.summary = response.data.post.summary;
+                    this.content = response.data.post.content;
+                }
+            } catch (error) {
+                console.error("Failed to fetch post:", error);
             }
-        },
-        createImage(file) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                this.imagePreview = e.target.result;
-            };
-            reader.readAsDataURL(file);
-        },
-        openFileInput() {
-            this.$refs.image.click();
         },
         navigateTo(route) {
             this.$router.push(route);
@@ -77,16 +66,14 @@ export default {
             this.submitError = null;
 
             const formData = new FormData();
+            formData.append('id', this.id);
             formData.append('title', this.title);
             formData.append('summary', this.summary);
             formData.append('content', this.content);
-            if (this.selectedImage) {
-                formData.append('image', this.selectedImage);
-            }
 
             try {
                 const token = localStorage.getItem('jwtToken');
-                let response = await this.$http.post('/api/post/create', formData, {
+                let response = await this.$http.post('/api/post/edit', formData, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                         'Content-Type': 'multipart/form-data'
@@ -104,12 +91,15 @@ export default {
                 this.isSubmitting = false;
             }
         }
+    },
+    mounted() {
+        this.fetchPost();
     }
-};
+}
 </script>
 
 <style scoped>
-.post-create-view {
+.post-edit-view {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -118,7 +108,7 @@ export default {
     background-color: #eeeeee;
 }
 
-.post-create-container {
+.post-edit-container {
     width: 90%;
     height: 85%;
     margin: 0 auto;
@@ -262,10 +252,5 @@ button[type="submit"]:disabled {
 .error-message {
     color: red;
     margin-top: 10px;
-}
-
-.image-preview img {
-    max-width: 100%;
-    border-radius: 4px;
 }
 </style>

@@ -48,7 +48,7 @@ export default {
                     await new Promise(resolve => setTimeout(resolve, 500));
                     this.$store.commit('SET_TOKEN', response.data.access_token);
                     this.$store.commit('SET_USER', response.data.user);
-                    this.$store.commit('SET_AVATAR_URL', `data:image/jpg;base64,${response.data.user.avatar_base64}`);
+                    this.$store.commit('SET_AVATAR_URL', `${this.$http.defaults.baseURL}${response.data.user.avatar_url}`);
                     this.$router.push('/dashboard');
                 }
             } catch (error) {
@@ -59,9 +59,6 @@ export default {
             }
         },
         async handleLogin() {
-            // Handle login logic here
-            let passwordHash = await this.createSHA256Hash(this.password);
-            console.log('Login:', { email: this.email, password: passwordHash });
             this.login();
         },
         switchToRegister() {

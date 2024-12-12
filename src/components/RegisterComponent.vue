@@ -65,13 +65,6 @@ export default {
             }
         },
         async handleRegister() {
-            if (this.password !== this.confirmPassword) {
-                alert('Passwords do not match');
-                return;
-            }
-            // Handle register logic here
-            let passwordHash = await this.createSHA256Hash(this.password);
-            console.log('Register:', { email: this.email, username: this.username, password: passwordHash });
             this.register();
         },
         switchToLogin() {
