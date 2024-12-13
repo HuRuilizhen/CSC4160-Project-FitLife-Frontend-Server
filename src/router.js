@@ -7,6 +7,9 @@ import Community from './views/CommunityView.vue';
 import PostCreateView from './views/PostCreateView.vue';
 import PostDetailView from './views/PostDetailView.vue';
 import PostEditView from './views/PostEditView.vue';
+import SportLogView from './views/SportLogView.vue';
+import SportLogCreateView from './views/SportLogCreateView.vue';
+
 
 const routes = [
     {
@@ -62,7 +65,23 @@ const routes = [
     {
         path: '/:pathMatch(.*)*',
         redirect: { name: 'Dashboard' }
-    }
+    },
+    {
+        path: '/sportlog',
+        name: 'SportLog',
+        component: SportLogView,
+        meta: {
+            requiresAuth: true
+        }
+    },
+    {
+        path: '/sportlog/create',
+        name: 'SportLogCreate',
+        component: SportLogCreateView,
+        meta: {
+          requiresAuth: true,
+        },
+      },
 ];
 
 const router = createRouter({
