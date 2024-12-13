@@ -1,6 +1,6 @@
 <template>
-    <div class="post-detail-view">
-        <div class="post-detail-container">
+    <div class="page-view">
+        <div class="page-container">
             <header class="page-header">
                 <div class="header-content">
                     <div v-if="!post">
@@ -152,61 +152,8 @@ export default {
 </script>
 
 <style scoped>
+@import url(../assets/page.css);
 @import url(../assets/comments.css);
-
-.post-detail-view {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 100%;
-    height: 98vh;
-    background-color: #eeeeee;
-}
-
-.post-detail-container {
-    width: 90%;
-    height: 85%;
-    margin: 0 auto;
-    margin-top: 60px;
-    padding: 20px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    overflow-y: auto;
-}
-
-.page-header {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 10px;
-    padding: 20px;
-}
-
-.header-content {
-    text-align: left;
-}
-
-.page-header h2 {
-    font-size: 2.5em;
-    color: #333;
-    margin: 0;
-    padding: 0;
-    font-weight: bold;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.page-header p {
-    font-size: 1.2em;
-    color: #555;
-    margin: 10px 0 0;
-    font-style: italic;
-}
 
 .author-info {
     display: flex;
@@ -228,31 +175,6 @@ export default {
     color: #555;
 }
 
-.header-btn {
-    padding: 10px 20px;
-    font-size: 1em;
-    color: white;
-    background-color: #4CAF50;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.header-btn:hover {
-    background-color: #45a049;
-}
-
-.main-content {
-    width: 100%;
-    padding: 20px;
-    background-color: white;
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    align-items: center;
-}
-
 .post-image {
     width: 100%;
     overflow: hidden;
@@ -262,7 +184,7 @@ export default {
 }
 
 .post-image img {
-    width: 80%;
+    width: 100%;
     height: auto;
     display: block;
     border-radius: 8px;

@@ -53,7 +53,6 @@
                                 </footer>
                             </div>
                         </div>
-
                         <div v-if="!posts.length" class="no-posts">No posts available.</div>
                     </div>
                 </div>
@@ -164,6 +163,15 @@ export default {
     height: 60%;
     padding: 20px;
     border-top: 1px solid #ccc;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.recent-activity,
+.community-feed {
+    width: 90%;
+    max-width: 800px;
 }
 
 .recent-activity h3,

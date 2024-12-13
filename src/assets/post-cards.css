@@ -1,5 +1,5 @@
 .post-cards {
-    width: 80%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -40,6 +40,18 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 10px;
+}
+
+.post-header h3 {
+    font-size: 1.2em;
+    width: 40%;
+    margin: 0;
+}
+
+.post-header p {
+    font-size: 1em;
+    margin: 0;
+    color: #777;
 }
 
 .post-footer {
