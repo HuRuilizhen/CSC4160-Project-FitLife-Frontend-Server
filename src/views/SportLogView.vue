@@ -11,13 +11,10 @@
             <div class="main-content">
                 <div class="log-cards">
                     <div v-for="log in logs" :key="log.id" class="log-card">
-                        <div v-if="log.image" class="log-image">
-                            <img :src="`${$http.defaults.baseURL}${log.image}`" alt="Sport Image" />
-                        </div>
                         <div class="log-content">
                             <div class="log-header">
-                                <h3>{{ log.type }}</h3>
-                                <p>{{ log.duration }} minutes</p>
+                                <h3>{{ log.activity_type }}</h3>
+                                <p>{{ log.duration }} minutes burned {{ log.calories_burned }} kcal</p>
                             </div>
                             <footer class="log-footer">
                                 <small>Logged on {{ formatDate(log.date) }}</small>
@@ -54,7 +51,7 @@ export default {
                 headers: { Authorization: `Bearer ${token}` },
             });
             if (response.data.is_valid) {
-                this.logs = response.data.logs;
+                this.logs = response.data.records;
             }
         },
         formatDate(dateString) {
@@ -69,7 +66,7 @@ export default {
 @import url(../assets/page.css);
 
 .log-cards {
-    width: 80%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     gap: 20px;

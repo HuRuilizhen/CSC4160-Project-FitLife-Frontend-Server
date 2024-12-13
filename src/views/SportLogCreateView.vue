@@ -53,7 +53,7 @@ export default {
                     },
                 });
 
-                if (response.data.is_valid && response.data.message === "Sport log created successfully.") {
+                if (response.data.is_valid) {
                     this.$router.push("/sportlog");
                 } else {
                     this.submitError = response.data.message;
