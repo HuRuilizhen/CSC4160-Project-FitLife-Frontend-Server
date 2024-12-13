@@ -4,15 +4,15 @@
             <header class="page-header">
                 <div class="header-content">
                     <h2>Add New Sport Log</h2>
-                    <p>Record your exercise activities and keep track of your progress.</p>
+                    <p>Try our AI-generated sport log feature! Write something about your exercise.</p>
                 </div>
                 <button @click="navigateTo('/sportlog')" class="header-btn">Back to Sport Log</button>
             </header>
             <form class="main-content" @submit.prevent="submitLog">
                 <div class="form-group">
-                    <label for="exerciseNote">Exercise Note:</label>
-                    <textarea id="exerciseNote" v-model="exerciseNote"
-                        placeholder="Write something about your exercise, e.g., 'I ran for 30 minutes today.'" rows="5"
+                    <label for="note">Exercise Note:</label>
+                    <textarea id="note" v-model="note"
+                        placeholder="Write something about your exercise, e.g. 'I ran for 30 minutes today'"
                         required></textarea>
                 </div>
                 <p v-if="submitError" class="error-message">{{ submitError }}</p>
@@ -27,7 +27,7 @@ export default {
     name: "SportLogCreateView",
     data() {
         return {
-            exerciseNote: "",
+            note: "",
             isSubmitting: false,
             submitError: null,
         };
@@ -41,12 +41,12 @@ export default {
             this.submitError = null;
 
             const payload = {
-                note: this.exerciseNote,
+                note: this.note,
             };
 
             try {
                 const token = localStorage.getItem("jwtToken");
-                const response = await this.$http.post("/api/sportlog/create", payload, {
+                const response = await this.$http.post("/api/activity/create", payload, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                         "Content-Type": "application/json",
@@ -70,42 +70,5 @@ export default {
 
 <style scoped>
 @import url(../assets/page.css);
-
-.form-group label {
-    font-weight: bold;
-    margin-bottom: 5px;
-}
-
-.form-group textarea {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    resize: none;
-}
-
-button[type="submit"] {
-    padding: 10px;
-    background-color: #4caf50;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-button[type="submit"]:hover:not(:disabled) {
-    background-color: #45a049;
-}
-
-button[type="submit"]:disabled {
-    background-color: #cccccc;
-    cursor: not-allowed;
-}
-
-.error-message {
-    color: red;
-    font-size: 0.9rem;
-}
+@import url(../assets/form.css);
 </style>

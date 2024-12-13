@@ -50,7 +50,7 @@ export default {
         },
         async fetchLogs() {
             const token = localStorage.getItem("jwtToken");
-            let response = await this.$http.get("/api/sportlog/fetch", {
+            let response = await this.$http.get("/api/activity/fetch", {
                 headers: { Authorization: `Bearer ${token}` },
             });
             if (response.data.is_valid) {
