@@ -1,5 +1,5 @@
 {
-    "name": "marchstudio",
+    "name": "fitlife",
     "version": "0.0.0",
     "private": true,
     "type": "module",
@@ -13,6 +13,7 @@
         "@vitejs/plugin-vue": "^5.1.2",
         "axios": "^1.7.3",
         "crypto-js": "^4.2.0",
+        "quill": "^2.0.3",
         "vite": "^5.4.0",
         "vue": "^3.4.21",
         "vue-router": "^4.4.3",

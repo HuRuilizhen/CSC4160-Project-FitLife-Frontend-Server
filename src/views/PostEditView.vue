@@ -21,16 +21,20 @@
                 </div>
                 <div class="form-group">
                     <label for="content">Content:</label>
-                    <textarea id="content" v-model="content" required></textarea>
+                    <div ref="editor"></div>
                 </div>
                 <p v-if="submitError" class="error-message">{{ submitError }}</p>
-                <button type="submit" :disabled="isSubmitting">Edit</button>
+                <button class="form-submit-btn" type="submit" :disabled="isSubmitting">Edit</button>
             </form>
         </div>
     </div>
 </template>
 
 <script>
+import Quill from 'quill';
+import 'quill/dist/quill.core.css';
+import 'quill/dist/quill.snow.css';
+
 export default {
     name: 'PostEdit',
     data() {
@@ -41,6 +45,7 @@ export default {
             content: '',
             submitError: null,
             isSubmitting: false,
+            editor: null
         };
     },
     methods: {
@@ -53,6 +58,9 @@ export default {
                     this.title = response.data.post.title;
                     this.summary = response.data.post.summary;
                     this.content = response.data.post.content;
+                    if (this.editor) {
+                        this.editor.root.innerHTML = response.data.post.content;
+                    }
                 }
             } catch (error) {
                 console.error("Failed to fetch post:", error);
@@ -93,6 +101,14 @@ export default {
         }
     },
     mounted() {
+        this.editor = new Quill(this.$refs.editor, {
+            modules: { toolbar: true },
+            theme: 'snow',
+            placeholder: 'Compose your post here...'
+        });
+        this.editor.on('text-change', () => {
+            this.content = this.editor.root.innerHTML;
+        });
         this.fetchPost();
     }
 }
