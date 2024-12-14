@@ -23,16 +23,26 @@
             </div>
             <div class="main-content">
                 <div class="recent-activity">
-                    <h3>Recent Activity</h3>
-                    <div class="activity-cards">
-                        <div class="activity-card" v-for="activity in recentActivities" :key="activity.date">
-                            {{ activity.description }}
+                    <h2>Recent Activity</h2>
+                    <div class="log-cards">
+                        <div v-for="activity in recentActivities" :key="activity.id" class="log-card">
+                            <div class="log-content">
+                                <div class="log-header">
+                                    <h3>{{ activity.activity_type }}</h3>
+                                    <p>{{ activity.duration }} minutes burned {{ activity.calories_burned }} kcal</p>
+                                </div>
+                                <footer class="log-footer">
+                                    <small>Logged on {{ formatDate(activity.date) }}</small>
+                                </footer>
+                            </div>
                         </div>
                     </div>
-                    <div v-if="!recentActivities.length">No recent activities available.</div>
+                    <div v-if="!recentActivities.length" class="no-logs">
+                        <p>No sport logs available. Start by adding your first log!</p>
+                    </div>
                 </div>
                 <div class="community-feed">
-                    <h3>Community Feed</h3>
+                    <h2>Community Feed</h2>
                     <div class="post-cards">
                         <div v-for="post in posts" :key="post.id" class="post-card"
                             @click="navigateTo(`/community/post?id=${post.id}`)">
@@ -101,6 +111,7 @@ export default {
 
 <style scoped>
 @import url(../assets/post-cards.css);
+@import url(../assets/log-cards.css);
 
 .dashboard-view {
     display: flex;
@@ -174,35 +185,10 @@ export default {
     max-width: 800px;
 }
 
-.recent-activity h3,
-.community-feed h3 {
+.recent-activity h2,
+.community-feed h2 {
     font-size: 18px;
     margin-bottom: 10px;
     color: #45a049;
-}
-
-.community-feed {
-    margin-top: 20px;
-}
-
-.activity-cards {
-    width: 80%;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.activity-card {
-    background-color: #f8f8f8;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    padding: 15px;
-    cursor: pointer;
-    transition: transform 0.3s ease;
-}
-
-.activity-card:hover {
-    transform: translateY(-5px);
-    background-color: #f0f0f0;
 }
 </style>

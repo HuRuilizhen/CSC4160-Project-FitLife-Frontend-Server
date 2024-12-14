@@ -1,0 +1,58 @@
+.log-cards {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.log-card {
+    display: flex;
+    border-radius: 8px;
+    background-color: #f8f8f8;
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.log-card:hover {
+    transform: scale(1.02);
+    background-color: #f0f0f0;
+}
+
+.log-image img {
+    width: 100%;
+    height: auto;
+}
+
+.log-content {
+    padding: 10px;
+}
+
+.log-header h3 {
+    font-size: 1.5em;
+    color: #333;
+    margin: 0;
+}
+
+.log-header p {
+    font-size: 1em;
+    color: #555;
+    margin: 5px 0 0;
+}
+
+.log-footer {
+    margin-top: 10px;
+    font-size: 0.9em;
+    color: #888;
+}
+
+.no-logs {
+    text-align: center;
+}
+
+.no-logs p {
+    font-size: 1.2em;
+    color: #555;
+    font-style: italic;
+}
