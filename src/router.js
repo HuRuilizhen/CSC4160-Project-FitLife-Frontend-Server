@@ -7,6 +7,7 @@ import Community from './views/CommunityView.vue';
 import PostCreateView from './views/PostCreateView.vue';
 import PostDetailView from './views/PostDetailView.vue';
 import PostEditView from './views/PostEditView.vue';
+import DietLogView from './views/DietLogView.vue';
 import SportLogView from './views/SportLogView.vue';
 import SportLogCreateView from './views/SportLogCreateView.vue';
 
@@ -52,7 +53,10 @@ const routes = [
     {
         path: '/community/post',
         name: 'PostDetail',
-        component: PostDetailView
+        component: PostDetailView,
+        meta: {
+            requiresAuth: true
+        }
     },
     {
         path: '/community/post/edit',
@@ -67,6 +71,22 @@ const routes = [
         redirect: { name: 'Dashboard' }
     },
     {
+        path: '/dietlog',
+        name: 'DietLog',
+        component: DietLogView,
+        meta: {
+            requiresAuth: true
+        }
+    },
+    {
+        path: '/dietlog/create',
+        name: 'DietLogCreate',
+        component: DietLogView,
+        meta: {
+            requiresAuth: true
+        }
+    },
+    {
         path: '/sportlog',
         name: 'SportLog',
         component: SportLogView,
@@ -79,9 +99,9 @@ const routes = [
         name: 'SportLogCreate',
         component: SportLogCreateView,
         meta: {
-          requiresAuth: true,
+            requiresAuth: true,
         },
-      },
+    },
 ];
 
 const router = createRouter({
