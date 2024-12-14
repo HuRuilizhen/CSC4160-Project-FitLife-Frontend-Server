@@ -22,6 +22,25 @@
                 </div>
             </div>
             <div class="main-content">
+                <div class="recent-diet">
+                    <h2>Recent Diet</h2>
+                    <div class="log-cards">
+                        <div v-for="diet in recentDiets" :key="diet.id" class="log-card">
+                            <div class="log-content">
+                                <div class="log-header">
+                                    <h3>{{ diet.food_name }}</h3>
+                                    <p>{{ diet.quantity }} grams comsumed {{ diet.calories_consumed }} kcal</p>
+                                </div>
+                                <footer class="log-footer">
+                                    <small>Logged on {{ formatDate(diet.date) }}</small>
+                                </footer>
+                            </div>
+                        </div>
+                    </div>
+                    <div v-if="!recentDiets.length" class="no-logs">
+                        <p>No diet logs available. Start by adding your first log!</p>
+                    </div>
+                </div>
                 <div class="recent-activity">
                     <h2>Recent Activity</h2>
                     <div class="log-cards">
@@ -79,6 +98,7 @@ export default {
         return {
             userCaloriesBurned: null,
             userCaloriesConsumed: null,
+            recentDiets: [],
             recentActivities: [],
             posts: []
         };
@@ -96,6 +116,7 @@ export default {
                 .then(response => {
                     this.userCaloriesBurned = response.data.userCaloriesBurned;
                     this.userCaloriesConsumed = response.data.userCaloriesConsumed;
+                    this.recentDiets = response.data.recentDiets;
                     this.recentActivities = response.data.recentActivities;
                     this.posts = response.data.posts;
                 })
@@ -179,12 +200,14 @@ export default {
     align-items: center;
 }
 
+.recent-diet,
 .recent-activity,
 .community-feed {
     width: 90%;
     max-width: 800px;
 }
 
+.recent-diet h2,
 .recent-activity h2,
 .community-feed h2 {
     font-size: 18px;
