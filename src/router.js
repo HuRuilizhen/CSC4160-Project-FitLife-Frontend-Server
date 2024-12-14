@@ -8,6 +8,7 @@ import PostCreateView from './views/PostCreateView.vue';
 import PostDetailView from './views/PostDetailView.vue';
 import PostEditView from './views/PostEditView.vue';
 import DietLogView from './views/DietLogView.vue';
+import DietLogCreateView from './views/DietLogCreateView.vue';
 import SportLogView from './views/SportLogView.vue';
 import SportLogCreateView from './views/SportLogCreateView.vue';
 
@@ -67,10 +68,6 @@ const routes = [
         }
     },
     {
-        path: '/:pathMatch(.*)*',
-        redirect: { name: 'Dashboard' }
-    },
-    {
         path: '/dietlog',
         name: 'DietLog',
         component: DietLogView,
@@ -81,7 +78,7 @@ const routes = [
     {
         path: '/dietlog/create',
         name: 'DietLogCreate',
-        component: DietLogView,
+        component: DietLogCreateView,
         meta: {
             requiresAuth: true
         }
@@ -101,6 +98,10 @@ const routes = [
         meta: {
             requiresAuth: true,
         },
+    },
+    {
+        path: '/:pathMatch(.*)*',
+        redirect: { name: 'Dashboard' }
     },
 ];
 

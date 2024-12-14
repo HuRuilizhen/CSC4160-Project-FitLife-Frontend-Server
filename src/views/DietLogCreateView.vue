@@ -24,7 +24,7 @@
 
 <script>
 export default {
-    name: "SportLogCreate",
+    name: "DietLogCreate",
     data() {
         return {
             note: "",
@@ -54,7 +54,7 @@ export default {
                 });
 
                 if (response.data.is_valid) {
-                    this.$router.push("/sportlog");
+                    this.$router.push("/dietlog");
                 } else {
                     this.submitError = response.data.message;
                 }

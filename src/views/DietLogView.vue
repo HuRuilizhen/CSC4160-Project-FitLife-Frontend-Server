@@ -13,8 +13,8 @@
                     <div v-for="log in logs" :key="log.id" class="log-card">
                         <div class="log-content">
                             <div class="log-header">
-                                <h3>{{ log.activity_type }}</h3>
-                                <p>{{ log.duration }} minutes burned {{ log.calories_burned }} kcal</p>
+                                <h3>{{ log.food_name }}</h3>
+                                <p>{{ log.quantity }} grams comsumed {{ log.calories_consumed }} kcal</p>
                             </div>
                             <footer class="log-footer">
                                 <small>Logged on {{ formatDate(log.date) }}</small>
@@ -32,7 +32,7 @@
 
 <script>
 export default {
-    name: "DietLog",
+    name: "DietLogView",
     data() {
         return {
             logs: [],
