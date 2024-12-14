@@ -11,6 +11,8 @@ import DietLogView from './views/DietLogView.vue';
 import DietLogCreateView from './views/DietLogCreateView.vue';
 import SportLogView from './views/SportLogView.vue';
 import SportLogCreateView from './views/SportLogCreateView.vue';
+import ReportChartView from './views/ReportChartView.vue';
+import ReportTipView from './views/ReportTipView.vue';
 
 
 const routes = [
@@ -97,6 +99,22 @@ const routes = [
         component: SportLogCreateView,
         meta: {
             requiresAuth: true,
+        },
+    },
+    {
+        path: '/report',
+        name: 'ReportChart',
+        component: ReportChartView,
+        meta: {
+            requiresAuth: true
+        },
+    },
+    {
+        path: '/report/tips',
+        name: 'ReportTips',
+        component: ReportTipView,
+        meta: {
+            requiresAuth: true
         },
     },
     {

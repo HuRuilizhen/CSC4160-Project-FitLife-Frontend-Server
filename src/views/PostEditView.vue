@@ -50,7 +50,6 @@ export default {
     },
     methods: {
         async fetchPost() {
-            console.log("Fetching post...");
             const token = localStorage.getItem('jwtToken');
             try {
                 let response = await this.$http.get(`/api/post/detail`, { params: { id: this.id }, headers: { Authorization: `Bearer ${token}` } });
