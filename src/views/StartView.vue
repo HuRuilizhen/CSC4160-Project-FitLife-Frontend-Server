@@ -9,7 +9,7 @@ import LoginComponent from '@/components/LoginComponent.vue';
 import RegisterComponent from '@/components/RegisterComponent.vue';
 
 export default {
-    name: 'Start',
+    name: 'StartView',
     components: {
         LoginComponent,
         RegisterComponent
