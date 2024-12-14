@@ -24,7 +24,7 @@
 
 <script>
 export default {
-    name: "SportLogCreateView",
+    name: "SportLogCreate",
     data() {
         return {
             note: "",

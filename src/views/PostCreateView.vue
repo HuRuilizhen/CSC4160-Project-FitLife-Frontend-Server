@@ -43,7 +43,7 @@ import 'quill/dist/quill.core.css';
 import 'quill/dist/quill.snow.css';
 
 export default {
-    name: 'PostCreate',
+    name: 'PostCreateView',
     data() {
         return {
             title: '',

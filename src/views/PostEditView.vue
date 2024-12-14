@@ -36,7 +36,7 @@ import 'quill/dist/quill.core.css';
 import 'quill/dist/quill.snow.css';
 
 export default {
-    name: 'PostEdit',
+    name: 'PostEditView',
     data() {
         return {
             id: this.$route.query.id,

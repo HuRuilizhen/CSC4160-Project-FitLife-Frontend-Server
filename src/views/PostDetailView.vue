@@ -61,7 +61,7 @@
 
 <script>
 export default {
-    name: 'PostDetail',
+    name: 'PostDetailView',
     data() {
         return {
             post: null,

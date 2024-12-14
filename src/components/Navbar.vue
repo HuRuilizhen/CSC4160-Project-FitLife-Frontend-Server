@@ -29,7 +29,7 @@
 
 <script>
 export default {
-    name: 'NavBar',
+    name: 'NavBarComponent',
     data() {
         return {
             showDropdown: null,

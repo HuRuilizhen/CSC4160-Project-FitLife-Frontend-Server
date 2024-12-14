@@ -40,7 +40,7 @@
 
 <script>
 export default {
-    name: 'Community',
+    name: 'CommunityView',
     data() {
         return {
             posts: []

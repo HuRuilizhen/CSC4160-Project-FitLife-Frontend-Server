@@ -32,7 +32,7 @@
 
 <script>
 export default {
-    name: "SportLog",
+    name: "SportLogView",
     data() {
         return {
             logs: [],

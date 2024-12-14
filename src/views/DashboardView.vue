@@ -74,7 +74,7 @@
 <script>
 
 export default {
-    name: 'Dashboard',
+    name: 'DashboardView',
     data() {
         return {
             userCaloriesBurned: null,

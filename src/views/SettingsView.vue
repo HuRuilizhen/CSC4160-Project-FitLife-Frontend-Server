@@ -39,6 +39,7 @@
 import CryptoJS from 'crypto-js';
 
 export default {
+    name: 'SettingsView',
     data() {
         return {
             username: '',
