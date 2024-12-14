@@ -55,7 +55,10 @@ export default {
         },
         async createTip() {
             const token = localStorage.getItem('jwtToken');
-            let response = await this.$http.post('/api/tip/create', { headers: { Authorization: `Bearer ${token}` } });
+            let response = await this.$http.post('/api/report/tip/create', { headers: { Authorization: `Bearer ${token}` } });
+            if (response.data.is_valid) {
+                this.tips.push(response.data.tip);
+            }
         }
     },
     mounted() {
