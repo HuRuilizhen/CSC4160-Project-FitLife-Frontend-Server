@@ -10,13 +10,13 @@
             </header>
             <div class="main-content">
                 <div class="tip-cards">
-                    <div v-for="tip in tips" :key="log.id" class="tip-card">
+                    <div v-for="tip in tips" :key="tips.id" class="tip-card">
                         <div class="tip-content">
                             <div class="tip-header">
-                                <p>{{ tips.activity_type }}</p>
+                                <p>{{ tip.health_advice }}</p>
                             </div>
                             <footer class="tip-footer">
-                                <small>Logged on {{ formatDate(log.date) }}</small>
+                                <small>Logged on {{ formatDate(tips.date) }}</small>
                             </footer>
                         </div>
                     </div>
@@ -24,7 +24,7 @@
                 <div v-if="!tips.length" class="no-tips">
                     <p>No tips available. Start by creating your first tip by clicking the button!</p>
                 </div>
-                <button class="bottom-btn">Create Health Tip</button>
+                <button @click="createTip" class="bottom-btn">Create Health Tip</button>
             </div>
         </div>
     </div>
@@ -52,10 +52,11 @@ export default {
             if (response.data.is_valid) {
                 this.tips = response.data.tips;
             }
+            console.log(this.tips);
         },
         async createTip() {
             const token = localStorage.getItem('jwtToken');
-            let response = await this.$http.post('/api/report/tip/create', { headers: { Authorization: `Bearer ${token}` } });
+            let response = await this.$http.get('/api/report/tip/create', { headers: { Authorization: `Bearer ${token}` } });
             if (response.data.is_valid) {
                 this.tips.push(response.data.tip);
             }
