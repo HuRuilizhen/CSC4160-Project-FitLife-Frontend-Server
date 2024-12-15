@@ -16,7 +16,7 @@
                                 <p>{{ tip.health_advice }}</p>
                             </div>
                             <footer class="tip-footer">
-                                <small>Logged on {{ formatDate(tips.date) }}</small>
+                                <small>Logged on {{ formatDate(tip.date) }}</small>
                             </footer>
                         </div>
                     </div>
