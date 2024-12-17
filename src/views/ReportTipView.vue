@@ -13,7 +13,7 @@
                     <div v-for="tip in tips" :key="tips.id" class="tip-card">
                         <div class="tip-content">
                             <div class="tip-header">
-                                <p>{{ tip.health_advice }}</p>
+                                <p v-html="parsedMarkdownText(tip.health_advice)"></p>
                             </div>
                             <footer class="tip-footer">
                                 <small>Logged on {{ formatDate(tip.date) }}</small>
@@ -31,6 +31,8 @@
 </template>
 
 <script>
+import { marked } from 'marked';
+
 export default {
     name: "ReportTipView",
     data() {
@@ -41,6 +43,9 @@ export default {
     methods: {
         navigateTo(route) {
             this.$router.push(route);
+        },
+        parsedMarkdownText(markdownText) {
+            return markdownText ? marked.parse(markdownText) : '';
         },
         formatDate(dateString) {
             const date = new Date(dateString);
