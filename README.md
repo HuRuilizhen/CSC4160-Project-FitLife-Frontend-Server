@@ -39,3 +39,5 @@ docker compose up -d
 ```
 
 ---
+
+see our online demo at [here](https://www.bilibili.com/video/BV1NeqoYqEUt/?vd_source=34dab56bed0197eb563d13169b88c828)
