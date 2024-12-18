@@ -40,16 +40,15 @@ export default {
             this.isSubmitting = true;
             this.submitError = null;
 
-            const payload = {
-                note: this.note,
-            };
+            const formData = new FormData();
+            formData.append("note", this.note);
 
             try {
                 const token = localStorage.getItem("jwtToken");
-                const response = await this.$http.post("/api/activity/create", payload, {
+                const response = await this.$http.post("/api/activity/create", formData, {
                     headers: {
                         Authorization: `Bearer ${token}`,
-                        "Content-Type": "application/json",
+                        "Content-Type": "multipart/form-data",
                     },
                 });
 

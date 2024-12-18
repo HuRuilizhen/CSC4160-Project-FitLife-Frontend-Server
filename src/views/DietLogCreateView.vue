@@ -40,18 +40,17 @@ export default {
             this.isSubmitting = true;
             this.submitError = null;
 
-            const payload = {
-                note: this.note,
-            };
+            const formData = new FormData();
+            formData.append("note", this.note);
 
             try {
                 const token = localStorage.getItem("jwtToken");
-                const response = await this.$http.post("/api/diet/create", payload, {
+                const response = await this.$http.post("/api/diet/create", formData, {
                     headers: {
                         Authorization: `Bearer ${token}`,
-                        "Content-Type": "application/json",
+                        "Content-Type": "multipart/form-data",
                     },
-                });
+                })
 
                 if (response.data.is_valid) {
                     this.$router.push("/dietlog");
